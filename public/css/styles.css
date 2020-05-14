@@ -1,0 +1,159 @@
+h1, h2 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+	color: #CBA93F;
+}
+
+h3, h4 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+}
+
+p, label {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	line-height: 28px;
+	font-weight: 200;
+}
+
+input, textarea {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	font-weight: 200;
+}
+
+.form-control {
+	border: 1px solid #CBA93F;
+}
+
+.btn {
+	padding: 8px 32px;
+}
+
+.btn-primary {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	background-color: #CBA93F;
+	border: 1px solid #a0832c;
+}
+
+.btn-disabled {
+	cursor: default;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	background-color: #e8e8e8;
+	border: 1px solid #a0832c;
+}
+
+.btn-primary:hover {
+	background-color: #a0832c;
+	border: 1px solid #786221;
+}
+
+.btn-primary:active, .btn-primary:focus {
+	background-color: #a0832c !important;
+	border: 1px solid #786221 !important;
+}
+
+.navbar {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.bg-dark {
+	background-color: #1A1A1A !important;
+}
+
+.nav-link {
+	text-transform: uppercase;
+	font-weight: 100;
+	transition: 0.15s all;
+}
+
+.nav-link:hover {
+	background-color: #D7CB96;
+	color: black !important;
+}
+
+.dropdown-menu {
+	padding: 0;
+}
+
+.dropdown-item {
+	text-transform: uppercase;
+	font-weight: 100;
+	padding: 1rem 1.5rem;
+	transition: 0.15s all;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+	background-color: #1A1A1A !important;
+	color: white;
+}
+
+.footer {
+	background-color: #1A1A1A;
+	padding: 48px;
+	color: white;
+}
+
+@media (min-width: 992px) {
+	.navbar-expand-lg .navbar-nav .nav-link {
+		border-radius: 4px;
+	    padding-right: 1vw;
+	    padding-left: 1vw;
+	}
+}
+
+.main-banner {
+	height: 100vh;
+	width: 100%;
+	color: white;
+	background: #4a4a4a;
+	background-image: url('https://cdn.shopify.com/s/files/1/2074/9385/articles/overplucked_eyebrows_here_s_how_to_fix_them_1400x.progressive.png.jpg?v=1565733316');
+	background-size: cover;
+	background-position: center;
+}
+
+.inner-banner {
+	padding-top: 50px;
+	height: 20vh;
+	width: 100%;
+	color: white;
+	background: #4a4a4a;
+	background-image: url('https://cdn.shopify.com/s/files/1/2074/9385/articles/overplucked_eyebrows_here_s_how_to_fix_them_1400x.progressive.png.jpg?v=1565733316');
+	background-size: cover;
+	background-position: center;
+}
+
+.overlay {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.background-row {
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+}
+
+.shadow-box {
+	background-color: #f8f8f8;
+	padding: 24px;
+	border-radius: 8px;
+	-webkit-box-shadow: 0px 4px 8px -2px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 4px 8px -2px rgba(0,0,0,0.25);
+	box-shadow: 0px 4px 8px -2px rgba(0,0,0,0.25);
+}
+
+.empty-box {
+	background-color: #f0f0f0;
+	padding: 16px;
+	border-radius: 8px;
+	color: #909090;
+}

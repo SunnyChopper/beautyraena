@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password',
     ];
 
     /**
@@ -28,12 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function scopeActive($query) {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeDeleted($query) {
+        return $query->where('is_active', 0);
+    }
+
+    public function orders() {
+        return $this->hasMany('App\Order', 'id', 'user_id');
+    }
+
 }
