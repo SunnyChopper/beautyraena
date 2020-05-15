@@ -21,6 +21,17 @@
 
 				<h4 class="mt-64">Recent Products</h4>
 				@if(count($products) > 0)
+				<ul class="list-group">
+					@foreach($products as $product)
+					<li class="list-group-item">
+						<h5 class="mb-0">{{ $product->title }}</h5>
+						<p class="mb-0">{{ $product->description }}</p>
+						<p class="mb-0"><small>Price: ${{ sprintf("%.2f", $product->price) }}</small></p>
+					</li>
+					@endforeach
+				</ul>
+
+				<a href="{{ url('/admin/products') }}" class="btn btn-sm btn-primary mt-16 centered">Manage Products</a>
 				@else
 					<div class="empty-box">
 						<h5 class="text-center mb-0">No Products Found</h5>

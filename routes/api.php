@@ -15,5 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('products')->group(function() {
+	Route::post('create', 'ProductsController@create');
+	Route::get('read', 'ProductsController@read');
+	Route::delete('delete', 'ProductsController@delete');
 	Route::get('get', 'ProductsController@get');
+});
+
+Route::prefix('orders')->group(function() {
+	Route::get('get', 'OrdersController@get');
+});
+
+Route::prefix('tickets')->group(function() {
+	Route::post('complete', 'TicketsController@complete');
+	Route::get('get', 'TicketsController@get');
 });

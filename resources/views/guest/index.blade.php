@@ -12,7 +12,23 @@
 						<p class="mb-0 text-center">Check out my newest products.</p>
 
 						@if(count($products) > 0)
-
+							<div class="row mt-32 mb-32 justify-content-center">
+								@foreach($products as $product)
+								<div class="col-lg-4 col-md-4 col-sm-6 col-12">
+									<a href="{{ url('/shop/products/' . $product->id) }}" style="text-decoration: none;">
+										<div class="image-box">
+											<div class="image-box-image">
+												<img src="{{ $product->cover_image }}" class="regular-image-100 centered" />
+											</div>
+											<div class="image-box-info">
+												<h5 class="text-center mb-2">{{ $product->title }}</h5>
+												<p class="text-center mb-0">${{ sprintf("%.2f", $product->price) }}</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								@endforeach
+							</div>
 						@else
 							<p class="mt-2 mb-0 text-center"><small>No products found in the shop. If you are an admin, <a href="{{ url('/admin') }}">login</a> to add a new product.</small></p>
 						@endif
@@ -22,7 +38,7 @@
 		</div>
 	</div>
 
-	<div class="background-row set-bg" data-bg="https://i.ytimg.com/vi/A_zvvbDOEY4/maxresdefault.jpg">
+	<div id="reviews" class="background-row set-bg" data-bg="https://i.ytimg.com/vi/A_zvvbDOEY4/maxresdefault.jpg">
 		<div class="overlay">
 			<div class="container pt-64 pb-64">
 				<div class="row justify-content-center" style="padding: 0px 12px;">

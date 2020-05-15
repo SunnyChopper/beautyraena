@@ -40,6 +40,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+					<p class="red" id="create_error" style="display: none;">Please fill out all fields.</p>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-success create">Create</button>
 				</div>

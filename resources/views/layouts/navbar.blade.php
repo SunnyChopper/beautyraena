@@ -8,18 +8,10 @@
 		<div class="collapse navbar-collapse" id="main-navbar">
 			@if(Auth::guest())
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url('/#intro') }}">Intro</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url('/shop') }}">Shop</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url('/reviews') }}">Reviews</a></li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Members</a>
-					<div class="dropdown-menu" aria-labelledby="dropdown07">
-						<a class="dropdown-item" href="{{ url('/login') }}">Login</a>
-						<a class="dropdown-item" href="{{ url('/register') }}">Register</a>
-					</div>
-				</li>
+				<li class="nav-item"><a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/') { echo "active"; } ?>" href="{{ url('/') }}">Home</a></li>
+				<li class="nav-item"><a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/shop') { echo "active"; } ?>" href="{{ url('/shop') }}">Shop</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ url('/#reviews') }}">Reviews</a></li>
+				<li class="nav-item"><a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/contact') { echo "active"; } ?>" href="{{ url('/contact') }}">Contact</a></li>
 			</ul>
 			@elseif((!Auth::guest()) && (App\Helpers\AdminHelper::isAdmin() == false))
 			@elseif((!Auth::guest()) && (App\Helpers\AdminHelper::isAdmin() == true))

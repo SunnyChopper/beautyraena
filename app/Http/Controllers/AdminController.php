@@ -108,6 +108,8 @@ class AdminController extends Controller
 	}
 
 	public function logout() {
+		Auth::logout();
+		
 		Session::forget('admin_id');
 		Session::save();
 

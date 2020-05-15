@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Order;
 
+use App\Helpers\AdminHelper;
+
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -77,6 +79,14 @@ class OrdersController extends Controller
 	/* --------------------- *\
 	|  3. View Functions      |
 	\* --------------------- */
+
+	public function admin_view() {
+		if (AdminHelper::isAdmin() == false) {
+			return redirect(url('/admin'));
+		}
+
+		return view('admin.orders.view')->with('header', 'Orders');
+	}
 
 	/* --------------------- *\
 	|  4. Helper Functions    |

@@ -26,9 +26,18 @@ class ProductsController extends Controller
 		$product = new Product;
 		$product->title = $data->title;
 		$product->description = $data->description;
-		$product->cover_image = $data->cover_image;
 		$product->price = $data->price;
-		$product->file = $data->file;
+
+		$cover_image = $data->file('cover_image');
+		$cover_image_name = str_replace(' ', '_', $data->file('cover_image')->getClientOriginalName());
+		$data->file('cover_image')->move(public_path('images'), $cover_image_name);
+		$product->cover_image = '/images/' . $cover_image_name;
+
+		$file = $data->file('file');
+		$file_name = str_replace(' ', '_', $data->file('file')->getClientOriginalName());
+		$data->file('file')->move(public_path('files'), $file_name);
+		$product->file = '/files/' . $file_name;
+
 		$product->save();
 
 		return response()->json([
@@ -107,6 +116,11 @@ class ProductsController extends Controller
 	|  3. View Functions      |
 	\* --------------------- */
 
+	public function view_product($product_id) {
+		$product = Product::find($product_id);
+		return view('guest.view-product')->with('header', $product->title)->with('product', $product);
+	}
+
 	public function admin_view() {
 		return view('admin.products.view')->with('header', 'Your Products');
 	}
@@ -114,5 +128,10 @@ class ProductsController extends Controller
 	/* --------------------- *\
 	|  4. Helper Functions    |
 	\* --------------------- */
+
+	public function download($product_id) {
+		$product = Product::find($product_id);
+		return response()->download(public_path($product->file));
+	}
 
 }
