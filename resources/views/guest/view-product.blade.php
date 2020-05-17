@@ -44,6 +44,10 @@
 		|  2. Helper functions    |
 		\* --------------------- */
 
+		String.prototype.splice = function(idx, rem, str) {
+    		return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+		};
+
 		function fetchData() {
 			$.ajax({
 				url: '/api/products/read?product_id=' + {{ $product->id }},
@@ -57,11 +61,70 @@
 		}
 
 		/* --------------------- *\
-		|  3. Button Bindings     |
+		|  3. Static Bindings     |
 		\* --------------------- */
+
+		$('input[name=cardNumber]').on('keyup', function() {
+			let cardInput = $(this).val();
+
+			if (cardInput.length >= 20) {
+				cardInput = cardInput.slice(0, -1);
+				$(this).val(cardInput);
+			} else {
+				if ((cardInput.length % 5 == 0) && (cardInput.length != 0)) {
+					cardInput = cardInput.splice((cardInput.length - 1), 0, " ");
+					$(this).val(cardInput);
+				}
+			}
+		});
+
+		$('input[name=cvvNumber]').on('keyup', function() {
+			let cvvInput = $(this).val();
+
+			if (cvvInput.length >= 4) {
+				cvvInput = cvvInput.slice(0, -1);
+				$(this).val(cvvInput);
+			}
+		});
+
+		$('.purchase').on('click', function() {
+			$(this).attr('disabled', true);
+
+			let cardNumber = $('input[name=cardNumber]').val();
+			let cvvNumber = $('input[name=cvvNumber]').val();
+			let ccExpiryMonth = $('select[name=ccExpiryMonth]').val();
+			let ccExpiryYear = $('select[name=ccExpiryYear]').val();
+			let firstName = $('input[name=first_name]').val();
+			let lastName = $('input[name=last_name]').val();
+			let email = $('input[name=email]').val();
+			let product_id = $('input[name=product_id]').val();
+
+			console.log(ccExpiryMonth);
+
+			$.ajax({
+				url: '{{ url('/shop/payments/submit') }}',
+				type: 'POST',
+				data: {
+					_token,
+					cardNumber,
+					cvvNumber,
+					ccExpiryMonth,
+					ccExpiryYear,
+					email,
+					product_id
+				},
+				success: function(data) {
+					console.log(data);
+					if (data.success == true) {
+						window.location.replace("{{ url('/shop/download/') }}/" + data.order.customer_id);
+					}
+				}
+			});
+		});
 
 		$('.purchase_button').on('click', function() {
 			$('#purchase_product_title').html(product.title);
+			$('#purchase_product_id').val(product.id);
 			$('#purchase_product_modal').modal('show');
 		});
 

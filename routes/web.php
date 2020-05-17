@@ -31,6 +31,9 @@ Route::get('/admin/logout', 'AdminController@logout');
 Route::get('/admin/products', 'ProductsController@admin_view');
 Route::get('/products/file/download/{product_id}', 'ProductsController@download');
 Route::get('/shop/products/{product_id}', 'ProductsController@view_product');
+Route::post('/shop/payments/submit', 'ProductsController@pay');
+Route::get('/shop/download/{customer_id}', 'ProductsController@download_product');
+Route::get('/shop/product/download/{customer_id}', 'ProductsController@download');
 
 // Order Views
 Route::get('/admin/orders', 'OrdersController@admin_view');

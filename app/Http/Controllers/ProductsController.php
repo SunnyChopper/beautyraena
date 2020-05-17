@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Order;
+
+use App\Helpers\StripeHelper;
 
 use Illuminate\Http\Request;
 
@@ -129,9 +132,58 @@ class ProductsController extends Controller
 	|  4. Helper Functions    |
 	\* --------------------- */
 
-	public function download($product_id) {
-		$product = Product::find($product_id);
-		return response()->download(public_path($product->file));
+	public function pay(Request $data) {
+		$product = Product::find($data->product_id);
+
+		$stripe_data = array();
+		$stripe_data["cardNumber"] = $data->cardNumber;
+		$stripe_data["cvvNumber"] = $data->cvvNumber;
+		$stripe_data["ccExpiryMonth"] = $data->ccExpiryMonth;
+		$stripe_data["ccExpiryYear"] = $data->ccExpiryYear;
+		$stripe_data["email"] = $data->email;
+		$stripe_data["amount"] = $product->price;
+		$stripe_data["description"] = $product->description;
+
+		$return_data = StripeHelper::checkout($stripe_data);
+
+		if ($return_data != "error") {
+			$order = new Order;
+			$order->product_id = $product->id;
+			$order->customer_id = $return_data["customer_id"];
+			$order->charge_id = $return_data["charge_id"];
+			$order->amount = $product->price;
+			$order->is_guest = 1;
+			$order->save();
+
+			return response()->json([
+				'success' => true,
+				'order' => $order->toArray()
+			], 200);
+		} else {
+			return response()->json([
+				'success' => false
+			], 200);
+		}
+	}
+
+	public function download_product($customer_id) {
+		if (Order::where('customer_id', $customer_id)->count() > 0) {
+			$order = Order::where('customer_id', $customer_id)->first();
+			$product = Product::find($order->product_id);
+			return view('guest.download')->with('header', 'Thank You')->with('product', $product)->with('order', $order);
+		} else {
+			return redirect(url('/shop'));
+		}
+	}
+
+	public function download($customer_id) {
+		if (Order::where('customer_id', $customer_id)->count() > 0) {
+			$order = Order::where('customer_id', $customer_id)->first();
+			$product = Product::find($order->product_id);
+			return response()->download(public_path($product->file));
+		} else {
+			return redirect(url('/shop'));
+		}
 	}
 
 }
